@@ -59,6 +59,8 @@ static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void const * argument);
 void StartBlinkLED0(void const * argument);
 void StartBlinkLED1(void const * argument);
+void StartBlinkLED2(void const * argument);
+void StartBlinkLED3(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -132,11 +134,11 @@ int main(void)
   blinkLED1Handle = osThreadCreate(osThread(blinkLED1), NULL);
 
   /* definition and creation of blinkLED2 */
-  osThreadDef(blinkLED2, StartBlinkLED1, osPriorityIdle, 0, 128);
+  osThreadDef(blinkLED2, StartBlinkLED2, osPriorityIdle, 0, 128);
   blinkLED2Handle = osThreadCreate(osThread(blinkLED2), NULL);
 
   /* definition and creation of blinkLED3 */
-  osThreadDef(blinkLED3, StartBlinkLED1, osPriorityIdle, 0, 128);
+  osThreadDef(blinkLED3, StartBlinkLED3, osPriorityIdle, 0, 128);
   blinkLED3Handle = osThreadCreate(osThread(blinkLED3), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -349,6 +351,44 @@ void StartBlinkLED1(void const * argument)
 	  osDelay(125); 	// delay for 125ms
   }
   /* USER CODE END StartBlinkLED1 */
+}
+
+/* USER CODE BEGIN Header_StartBlinkLED2 */
+/**
+* @brief Function implementing the blinkLED2 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartBlinkLED2 */
+void StartBlinkLED2(void const * argument)
+{
+  /* USER CODE BEGIN StartBlinkLED2 */
+  /* Infinite loop */
+  for(;;)
+  {
+	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);		// toggle the led state
+	  osDelay(75); 	// delay for 75ms
+  }
+  /* USER CODE END StartBlinkLED2 */
+}
+
+/* USER CODE BEGIN Header_StartBlinkLED3 */
+/**
+* @brief Function implementing the blinkLED3 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartBlinkLED3 */
+void StartBlinkLED3(void const * argument)
+{
+  /* USER CODE BEGIN StartBlinkLED3 */
+  /* Infinite loop */
+  for(;;)
+  {
+	  HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);		// toggle the led state
+	  osDelay(37); 	// delay for 37ms;
+  }
+  /* USER CODE END StartBlinkLED3 */
 }
 
 /**
