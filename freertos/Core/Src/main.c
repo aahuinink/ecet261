@@ -126,19 +126,19 @@ int main(void)
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of blinkLED0 */
-  osThreadDef(blinkLED0, StartBlinkLED0, osPriorityIdle, 0, 128);
+  osThreadDef(blinkLED0, StartBlinkLED0, osPriorityLow, 0, 128);
   blinkLED0Handle = osThreadCreate(osThread(blinkLED0), NULL);
 
   /* definition and creation of blinkLED1 */
-  osThreadDef(blinkLED1, StartBlinkLED1, osPriorityIdle, 0, 128);
+  osThreadDef(blinkLED1, StartBlinkLED1, osPriorityLow, 0, 128);
   blinkLED1Handle = osThreadCreate(osThread(blinkLED1), NULL);
 
   /* definition and creation of blinkLED2 */
-  osThreadDef(blinkLED2, StartBlinkLED2, osPriorityIdle, 0, 128);
+  osThreadDef(blinkLED2, StartBlinkLED2, osPriorityLow, 0, 128);
   blinkLED2Handle = osThreadCreate(osThread(blinkLED2), NULL);
 
   /* definition and creation of blinkLED3 */
-  osThreadDef(blinkLED3, StartBlinkLED3, osPriorityIdle, 0, 128);
+  osThreadDef(blinkLED3, StartBlinkLED3, osPriorityLow, 0, 128);
   blinkLED3Handle = osThreadCreate(osThread(blinkLED3), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -261,7 +261,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED3_Pin|LED2_Pin|LED0_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED3_Pin|LED2_Pin|LED1_Pin|LED0_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -276,18 +276,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED3_Pin LED2_Pin LED0_Pin */
-  GPIO_InitStruct.Pin = LED3_Pin|LED2_Pin|LED0_Pin;
+  /*Configure GPIO pins : LED3_Pin LED2_Pin LED1_Pin LED0_Pin */
+  GPIO_InitStruct.Pin = LED3_Pin|LED2_Pin|LED1_Pin|LED0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LED1_Pin */
-  GPIO_InitStruct.Pin = LED1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(LED1_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
